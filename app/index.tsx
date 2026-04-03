@@ -1,20 +1,17 @@
-import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
-import { useTheme } from "@/context/ThemeContext";
+import { DSThemeSwitcher, useDSTheme, withOpacity } from "@/design-system";
 import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import { Animated, Pressable, Text, View } from "react-native";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { Easing } from "react-native-reanimated";
 
 export default function Index() {
-  const { isSolar } = useTheme();
+  const { colors } = useDSTheme();
 
-  const fadeIn = useRef(new Animated.Value(0)).current;
-  const slideUp = useRef(new Animated.Value(40)).current;
+  const fadeIn     = useRef(new Animated.Value(0)).current;
+  const slideUp    = useRef(new Animated.Value(40)).current;
   const taglineFade = useRef(new Animated.Value(0)).current;
-  const buttonFade = useRef(new Animated.Value(0)).current;
-  const glowPulse = useRef(new Animated.Value(0.4)).current;
-
-  console.log("current theme:", isSolar ? "solar" : "neon");
+  const buttonFade  = useRef(new Animated.Value(0)).current;
+  const glowPulse   = useRef(new Animated.Value(0.4)).current;
 
   useEffect(() => {
     Animated.sequence([
@@ -47,104 +44,97 @@ export default function Index() {
 
     Animated.loop(
       Animated.sequence([
-        Animated.timing(glowPulse, {
-          toValue: 1,
-          duration: 2000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(glowPulse, {
-          toValue: 0.4,
-          duration: 2000,
-          useNativeDriver: true,
-        }),
+        Animated.timing(glowPulse, { toValue: 1,   duration: 2000, useNativeDriver: true }),
+        Animated.timing(glowPulse, { toValue: 0.4, duration: 2000, useNativeDriver: true }),
       ])
     ).start();
   }, [buttonFade, fadeIn, glowPulse, slideUp, taglineFade]);
 
   return (
-    <View className="flex-1 bg-background justify-between items-center px-8 pt-16 pb-16">
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
 
       {/* Background accent circles */}
-      <View className="absolute inset-0 overflow-hidden">
+      <View style={StyleSheet.absoluteFillObject}>
         <Animated.View
-          style={{ opacity: glowPulse }}
-          className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-primary/10"
+          style={[
+            styles.glowTopRight,
+            { backgroundColor: withOpacity(colors.primary, 0.1), opacity: glowPulse },
+          ]}
         />
         <Animated.View
-          style={{ opacity: glowPulse }}
-          className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-secondary/10"
+          style={[
+            styles.glowBottomLeft,
+            { backgroundColor: withOpacity(colors.secondary, 0.1), opacity: glowPulse },
+          ]}
         />
       </View>
 
       {/* Top bar — theme switcher */}
-      <Animated.View
-        style={{ opacity: buttonFade }}
-        className="w-full flex-row justify-end"
-      >
-        <ThemeSwitcher />
+      <Animated.View style={[styles.topBar, { opacity: buttonFade }]}>
+        <DSThemeSwitcher />
       </Animated.View>
 
       {/* Logo + headline */}
       <Animated.View
-        style={{ opacity: fadeIn, transform: [{ translateY: slideUp }] }}
-        className="items-center gap-6"
+        style={[styles.logoSection, { opacity: fadeIn, transform: [{ translateY: slideUp }] }]}
       >
-        {/* Icon mark */}
-        <View className="w-20 h-20 rounded-2xl bg-surface-container border border-primary/30 items-center justify-center">
-          <Text className="text-4xl">⚡</Text>
+        <View
+          style={[
+            styles.iconMark,
+            {
+              backgroundColor: colors.surfaceContainer,
+              borderColor: withOpacity(colors.primary, 0.3),
+            },
+          ]}
+        >
+          <Text style={styles.iconEmoji}>⚡</Text>
         </View>
 
-        {/* App name */}
-        <View className="items-center gap-1">
-          <Text
-            className="text-on-background text-5xl tracking-tight"
-            style={{ fontFamily: "SpaceGrotesk_700Bold" }}
-          >
+        <View style={styles.appNameContainer}>
+          <Text style={[styles.appName, { color: colors.onBackground, fontFamily: "SpaceGrotesk_700Bold" }]}>
             Dean&apos;s
           </Text>
-          <Text
-            className="text-primary text-5xl tracking-tight"
-            style={{ fontFamily: "SpaceGrotesk_700Bold" }}
-          >
+          <Text style={[styles.appName, { color: colors.primary, fontFamily: "SpaceGrotesk_700Bold" }]}>
             Fitness
           </Text>
         </View>
       </Animated.View>
 
       {/* Tagline */}
-      <Animated.View style={{ opacity: taglineFade }} className="items-center gap-3">
-        <View className="h-px w-12 bg-primary/40" />
-        <Text
-          className="text-on-surface-variant text-center text-lg leading-relaxed"
-          style={{ fontFamily: "Manrope_400Regular" }}
-        >
+      <Animated.View style={[styles.taglineSection, { opacity: taglineFade }]}>
+        <View style={[styles.divider, { backgroundColor: withOpacity(colors.primary, 0.4) }]} />
+        <Text style={[styles.tagline, { color: colors.onSurfaceVariant, fontFamily: "Manrope_400Regular" }]}>
           Train harder.{"\n"}Recover smarter.{"\n"}Perform better.
         </Text>
-        <View className="h-px w-12 bg-primary/40" />
+        <View style={[styles.divider, { backgroundColor: withOpacity(colors.primary, 0.4) }]} />
       </Animated.View>
 
       {/* CTA buttons */}
-      <Animated.View style={{ opacity: buttonFade }} className="w-full gap-4">
+      <Animated.View style={[styles.buttonSection, { opacity: buttonFade }]}>
         <Pressable
           onPress={() => router.push("/(auth)/sign-up")}
-          className="w-full bg-primary rounded-2xl py-4 items-center active:opacity-80"
+          style={({ pressed }) => [
+            styles.primaryButton,
+            { backgroundColor: colors.primary, opacity: pressed ? 0.8 : 1 },
+          ]}
         >
-          <Text
-            className="text-on-primary text-base font-semibold tracking-wide"
-            style={{ fontFamily: "Manrope_700Bold" }}
-          >
+          <Text style={[styles.primaryButtonText, { color: colors.onPrimary, fontFamily: "Manrope_700Bold" }]}>
             Get Started
           </Text>
         </Pressable>
 
         <Pressable
           onPress={() => router.push("/(auth)/sign-in")}
-          className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 items-center active:opacity-70"
+          style={({ pressed }) => [
+            styles.secondaryButton,
+            {
+              backgroundColor: colors.surfaceContainer,
+              borderColor: colors.outlineVariant,
+              opacity: pressed ? 0.7 : 1,
+            },
+          ]}
         >
-          <Text
-            className="text-on-surface-variant text-base"
-            style={{ fontFamily: "Manrope_400Regular" }}
-          >
+          <Text style={[styles.secondaryButtonText, { color: colors.onSurfaceVariant, fontFamily: "Manrope_400Regular" }]}>
             I already have an account
           </Text>
         </Pressable>
@@ -153,3 +143,96 @@ export default function Index() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 32,
+    paddingTop: 64,
+    paddingBottom: 64,
+  },
+  glowTopRight: {
+    position: "absolute",
+    top: -128,
+    right: -128,
+    width: 320,
+    height: 320,
+    borderRadius: 160,
+  },
+  glowBottomLeft: {
+    position: "absolute",
+    bottom: -80,
+    left: -80,
+    width: 256,
+    height: 256,
+    borderRadius: 128,
+  },
+  topBar: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  logoSection: {
+    alignItems: "center",
+    gap: 24,
+  },
+  iconMark: {
+    width: 80,
+    height: 80,
+    borderRadius: 16,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconEmoji: {
+    fontSize: 36,
+  },
+  appNameContainer: {
+    alignItems: "center",
+    gap: 4,
+  },
+  appName: {
+    fontSize: 48,
+    letterSpacing: -1,
+  },
+  taglineSection: {
+    alignItems: "center",
+    gap: 12,
+  },
+  divider: {
+    height: 1,
+    width: 48,
+  },
+  tagline: {
+    textAlign: "center",
+    fontSize: 18,
+    lineHeight: 28,
+  },
+  buttonSection: {
+    width: "100%",
+    gap: 16,
+  },
+  primaryButton: {
+    width: "100%",
+    borderRadius: 16,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+  primaryButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    letterSpacing: 0.5,
+  },
+  secondaryButton: {
+    width: "100%",
+    borderRadius: 16,
+    borderWidth: 1,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+  secondaryButtonText: {
+    fontSize: 16,
+  },
+});

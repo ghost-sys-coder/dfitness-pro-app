@@ -6,15 +6,11 @@ import { SpaceGrotesk_500Medium, SpaceGrotesk_700Bold } from "@expo-google-fonts
 import { WorkSans_400Regular, WorkSans_500Medium, WorkSans_700Bold } from "@expo-google-fonts/work-sans";
 import { useFonts } from "expo-font";
 
-import { ThemeProvider, useTheme } from "@/context/ThemeContext";
-import "@/global.css";
-import { themes } from "@/utils/colorThemes";
+import { DSThemeProvider } from "@/design-system";
 import { View } from "react-native";
 
 
 function RootLayoutInner() {
-  const { theme } = useTheme();
-
   const [fontsLoaded] = useFonts({
     SpaceGrotesk_700Bold,
     SpaceGrotesk_500Medium,
@@ -32,20 +28,17 @@ function RootLayoutInner() {
   }
 
   return (
-    <View
-      style={[{ flex: 1 }, themes[theme]]}
-      className={`will-change-variable ${theme === "neon" ? "neon-theme" : ""}`}
-    >
+    <View style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }} />
     </View>
-  )
+  );
 }
 
 
 export default function RootLayout() {
   return (
-    <ThemeProvider>
+    <DSThemeProvider>
       <RootLayoutInner />
-    </ThemeProvider>
-  )
+    </DSThemeProvider>
+  );
 }
