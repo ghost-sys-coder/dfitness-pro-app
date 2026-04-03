@@ -3,89 +3,91 @@
 @import "tailwindcss/utilities.css";
 @import "nativewind/theme";
 
-:root {
-  /* Default/Neon Athlete (Dark Theme) Variables */
-  --primary: #8ff5ff;
-  --primary-dim: #00deec;
-  --primary-container: #00eefc;
-  --on-primary: #005d63;
-  --on-primary-container: #005359;
+@layer base {
+  :root {
+    /* Solar Precision (Light Theme) Variables */
+    --primary: #ff6b35;
+    --primary-dim: #e05a2b;
+    --primary-container: #ffdbd0;
+    --on-primary: #ffffff;
+    --on-primary-container: #4c1300;
 
-  --secondary: #bf81ff;
-  --secondary-dim: #9c42f4;
-  --secondary-container: #7701d0;
-  --on-secondary: #32005c;
+    --secondary: #2c3e50;
+    --secondary-dim: #1a252f;
+    --secondary-container: #d1e4fb;
+    --on-secondary: #ffffff;
 
-  --tertiary: #65afff;
-  --tertiary-dim: #4aa2f9;
-  --tertiary-container: #4aa2f9;
-  --on-tertiary: #002e52;
+    --tertiary: #008080;
+    --tertiary-dim: #006666;
+    --tertiary-container: #93f2f2;
+    --on-tertiary: #ffffff;
 
-  --background: #0e0e0e;
-  --on-background: #ffffff;
+    --background: #f7f9fb;
+    --on-background: #191c1e;
 
-  --surface-lowest: #000000;
-  --surface-base: #0e0e0e;
-  --surface-low: #131313;
-  --surface-container: #1a1919;
-  --surface-high: #201f1f;
-  --surface-highest: #262626;
+    --surface-lowest: #ffffff;
+    --surface-base: #f7f9fb;
+    --surface-low: #f2f4f6;
+    --surface-container: #eceef0;
+    --surface-high: #e6e8ea;
+    --surface-highest: #e0e3e5;
 
-  --outline: #777575;
-  --outline-variant: #494847;
-  --on-surface-variant: #adaaaa;
+    --outline: #74777d;
+    --outline-variant: #c4c6cd;
+    --on-surface-variant: #43474c;
 
-  --error: #ff716c;
-  --on-error: #490006;
+    --error: #ba1a1a;
+    --on-error: #ffffff;
 
-  /* Font families — prefixed to avoid self-reference in @theme */
-  --font-family-display: SpaceGrotesk_700Bold;
-  --font-family-headline: SpaceGrotesk_500Medium;
-  --font-family-body: Manrope_400Regular;
-  --font-family-body-bold: Manrope_700Bold;
-  --font-family-label: Lexend_400Regular;
-  --font-family-label-bold: Lexend_700Bold;
-}
+    /* Font overrides for Solar theme */
+    --font-family-body: WorkSans_400Regular;
+    --font-family-body-bold: WorkSans_700Bold;
+    --font-family-label: WorkSans_500Medium;
+  }
 
-.theme-solar {
-  /* Solar Precision (Light Theme) Variables */
-  --primary: #ff6b35;
-  --primary-dim: #e05a2b;
-  --primary-container: #ffdbd0;
-  --on-primary: #ffffff;
-  --on-primary-container: #4c1300;
+  .neon-theme {
+    /* Default/Neon Athlete (Dark Theme) Variables */
+    --primary: #8ff5ff;
+    --primary-dim: #00deec;
+    --primary-container: #00eefc;
+    --on-primary: #005d63;
+    --on-primary-container: #005359;
 
-  --secondary: #2c3e50;
-  --secondary-dim: #1a252f;
-  --secondary-container: #d1e4fb;
-  --on-secondary: #ffffff;
+    --secondary: #bf81ff;
+    --secondary-dim: #9c42f4;
+    --secondary-container: #7701d0;
+    --on-secondary: #32005c;
 
-  --tertiary: #008080;
-  --tertiary-dim: #006666;
-  --tertiary-container: #93f2f2;
-  --on-tertiary: #ffffff;
+    --tertiary: #65afff;
+    --tertiary-dim: #4aa2f9;
+    --tertiary-container: #4aa2f9;
+    --on-tertiary: #002e52;
 
-  --background: #f7f9fb;
-  --on-background: #191c1e;
+    --background: #0e0e0e;
+    --on-background: #ffffff;
 
-  --surface-lowest: #ffffff;
-  --surface-base: #f7f9fb;
-  --surface-low: #f2f4f6;
-  --surface-container: #eceef0;
-  --surface-high: #e6e8ea;
-  --surface-highest: #e0e3e5;
+    --surface-lowest: #000000;
+    --surface-base: #0e0e0e;
+    --surface-low: #131313;
+    --surface-container: #1a1919;
+    --surface-high: #201f1f;
+    --surface-highest: #262626;
 
-  --outline: #74777d;
-  --outline-variant: #c4c6cd;
-  --on-surface-variant: #43474c;
+    --outline: #777575;
+    --outline-variant: #494847;
+    --on-surface-variant: #adaaaa;
 
-  --error: #ba1a1a;
-  --on-error: #ffffff;
+    --error: #ff716c;
+    --on-error: #490006;
 
-  /* Font overrides for Solar theme */
-  --font-family-body: WorkSans_400Regular;
-  --font-family-body-bold: WorkSans_700Bold;
-  --font-family-label: WorkSans_500Medium;
+    /* Font families — prefixed to avoid self-reference in @theme */
+    --font-family-display: SpaceGrotesk_700Bold;
+    --font-family-headline: SpaceGrotesk_500Medium;
+    --font-family-body: Manrope_400Regular;
+    --font-family-body-bold: Manrope_700Bold;
+    --font-family-label: Lexend_400Regular;
+    --font-family-label-bold: Lexend_700Bold;
+  }
 }
 
 @theme {
