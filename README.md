@@ -1,50 +1,280 @@
-# Welcome to your Expo app 👋
+# 🏋️‍♂️ DFitness Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+DFitness is a modern, cross-platform **fitness mobile application** built with **React Native (Expo Router)**. It delivers a premium workout experience through **video-based training**, **personalized programs**, and **progress tracking**.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 **Features**
 
-   ```bash
-   npm install
-   ```
+### 👤 Client Features
 
-2. Start the app
+* 🎥 Video-based workouts
+* 🧠 Personalized workout recommendations
+* 📊 Progress tracking (weight, calories, activity)
+* ❤️ Favorites & recent workouts
+* 🔔 Notifications & reminders
+* 🏆 Achievements & streaks
 
-   ```bash
-   npx expo start
-   ```
+### 🧑‍💼 Admin (Future Scope)
 
-In the output, you'll find options to open the app in a
+* Upload/manage workout videos
+* Create structured programs
+* User analytics dashboard
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🧱 **Tech Stack**
 
-## Get a fresh project
+* ⚛️ React Native (Expo)
+* 🧭 Expo Router (file-based navigation)
+* 🎨 NativeWind (Tailwind CSS for RN)
+* 🎞️ React Native Video / Expo AV
+* 🗄️ Appwrite / Supabase (planned backend)
+* 🔐 Authentication (JWT / OAuth)
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
+## 📁 **Project Structure**
+
+```
+app/
+├── index.tsx                # Splash / Entry screen (routing logic)
+├── _layout.tsx              # Root layout
+
+├── (auth)/                  # Authentication routes
+│   ├── login.tsx
+│   ├── register.tsx
+│   ├── forgot-password.tsx
+│   └── reset-password.tsx
+
+├── (onboarding)/            # First-time user flow
+│   ├── welcome.tsx
+│   ├── goals.tsx
+│   ├── fitness-level.tsx
+│   ├── preferences.tsx
+│   ├── schedule.tsx
+│   └── summary.tsx
+
+├── (tabs)/                  # Main app navigation (bottom tabs)
+│   ├── home/
+│   │   └── index.tsx
+│   ├── workouts/
+│   │   ├── index.tsx
+│   │   ├── search.tsx
+│   │   ├── [categoryId].tsx
+│   │   ├── favorites.tsx
+│   │   └── recent.tsx
+│   ├── progress/
+│   │   ├── index.tsx
+│   │   ├── stats.tsx
+│   │   ├── history.tsx
+│   │   ├── weight.tsx
+│   │   ├── calories.tsx
+│   │   └── achievements.tsx
+│   ├── profile/
+│   │   ├── index.tsx
+│   │   ├── edit.tsx
+│   │   ├── goals.tsx
+│   │   └── subscription.tsx
+│   └── community/ (optional)
+
+├── workouts/                # Workout flow (stack screens)
+│   ├── [workoutId].tsx      # Workout details
+│   ├── player.tsx           # Video player
+│   ├── summary.tsx          # Post-workout summary
+│   └── complete.tsx         # Completion screen
+
+├── program/                 # Workout programs
+│   ├── index.tsx
+│   ├── [programId].tsx
+│   ├── day/[dayId].tsx
+│   └── progress.tsx
+
+├── settings/                # App settings
+│   ├── index.tsx
+│   ├── notifications.tsx
+│   ├── privacy.tsx
+│   ├── account.tsx
+│   └── appearance.tsx
+
+├── modals/                  # Global modals
+│   ├── workout-complete.tsx
+│   ├── rest-timer.tsx
+│   ├── confirm-exit.tsx
+│   └── rate-workout.tsx
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🧭 **Routing Overview**
 
-To learn more about developing your project with Expo, look at the following resources:
+DFitness uses **Expo Router (file-based routing)**.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 🔑 Entry Point
 
-## Join the community
+* `/` → `app/index.tsx`
 
-Join our community of developers creating universal apps.
+  * Handles:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+    * Authentication check
+    * Onboarding status
+    * Redirect logic
+
+---
+
+### 🔐 Authentication Routes
+
+```
+/(auth)/login
+/(auth)/register
+/(auth)/forgot-password
+/(auth)/reset-password
+```
+
+---
+
+### 🚀 Onboarding Routes
+
+```
+/(onboarding)/welcome
+/(onboarding)/goals
+/(onboarding)/fitness-level
+/(onboarding)/preferences
+/(onboarding)/schedule
+/(onboarding)/summary
+```
+
+---
+
+### 📱 Main Tabs
+
+```
+/(tabs)/home
+/(tabs)/workouts
+/(tabs)/progress
+/(tabs)/profile
+```
+
+---
+
+### 🎥 Workout Flow
+
+```
+/workouts/[workoutId]
+/workouts/player
+/workouts/summary
+/workouts/complete
+```
+
+---
+
+### 📚 Programs
+
+```
+/program
+/program/[programId]
+/program/day/[dayId]
+/program/progress
+```
+
+---
+
+### ⚙️ Settings
+
+```
+/settings
+/settings/notifications
+/settings/privacy
+/settings/account
+/settings/appearance
+```
+
+---
+
+### 💬 Modals
+
+```
+/modals/workout-complete
+/modals/rest-timer
+/modals/confirm-exit
+/modals/rate-workout
+```
+
+---
+
+## 🎨 **Themes**
+
+DFitness supports multiple UI themes:
+
+1. 🌑 Dark Performance Theme (default)
+2. 🌕 Light Minimal Theme
+3. 🌈 Energetic Gradient Theme
+
+---
+
+## ▶️ **Getting Started**
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Start development server
+
+```bash
+npx expo start
+```
+
+### 3. Run on device
+
+* Scan QR with Expo Go
+* Or use emulator
+
+---
+
+## 🔐 **Environment Variables**
+
+Create a `.env` file:
+
+```
+EXPO_PUBLIC_API_URL=
+EXPO_PUBLIC_APPWRITE_ENDPOINT=
+EXPO_PUBLIC_APPWRITE_PROJECT_ID=
+```
+
+---
+
+## 🧠 **Best Practices**
+
+* Use reusable components
+* Keep screens lightweight
+* Lazy load heavy screens (video player)
+* Optimize video streaming
+* Use global state (Zustand/Redux) for user + workouts
+
+---
+
+## 🚀 **Future Roadmap**
+
+* 🤖 AI workout recommendations
+* 🥗 Nutrition tracking
+* ⌚ Wearables integration (Fitbit, Apple Watch)
+* 💬 Coach chat system
+* 💳 Subscription & payments
+* 🌐 Social/community features
+
+---
+
+## 🏁 **License**
+
+This project is proprietary under **Veilcode**.
+
+---
+
+## 👨‍💻 **Author**
+
+Built by **Veilcode**
+AI-powered digital solutions 🚀
+
+---
