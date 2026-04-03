@@ -1,9 +1,7 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css";
-
 @import "nativewind/theme";
-
 
 :root {
   /* Default/Neon Athlete (Dark Theme) Variables */
@@ -40,24 +38,24 @@
   --error: #ff716c;
   --on-error: #490006;
 
-  /* Fonts */
-  --font-display: SpaceGrotesk_700Bold;
-  --font-headline: SpaceGrotesk_500Medium;
-  --font-body: Manrope_400Regular;
-  --font-body-bold: Manrope_700Bold;
-  --font-label: Lexend_400Regular;
-  --font-label-bold: Lexend_700Bold;
+  /* Font families — prefixed to avoid self-reference in @theme */
+  --font-family-display: SpaceGrotesk_700Bold;
+  --font-family-headline: SpaceGrotesk_500Medium;
+  --font-family-body: Manrope_400Regular;
+  --font-family-body-bold: Manrope_700Bold;
+  --font-family-label: Lexend_400Regular;
+  --font-family-label-bold: Lexend_700Bold;
 }
 
 .theme-solar {
   /* Solar Precision (Light Theme) Variables */
-  --primary: #FF6B35;
+  --primary: #ff6b35;
   --primary-dim: #e05a2b;
   --primary-container: #ffdbd0;
   --on-primary: #ffffff;
   --on-primary-container: #4c1300;
 
-  --secondary: #2C3E50;
+  --secondary: #2c3e50;
   --secondary-dim: #1a252f;
   --secondary-container: #d1e4fb;
   --on-secondary: #ffffff;
@@ -84,13 +82,14 @@
   --error: #ba1a1a;
   --on-error: #ffffff;
 
-  /* Fonts (Updated for Heat/Solar vibe) */
-  --font-body: WorkSans_400Regular;
-  --font-body-bold: WorkSans_700Bold;
-  --font-label: WorkSans_500Medium;
+  /* Font overrides for Solar theme */
+  --font-family-body: WorkSans_400Regular;
+  --font-family-body-bold: WorkSans_700Bold;
+  --font-family-label: WorkSans_500Medium;
 }
 
 @theme {
+  /* Colors */
   --color-primary: var(--primary);
   --color-primary-dim: var(--primary-dim);
   --color-primary-container: var(--primary-container);
@@ -124,30 +123,22 @@
   --color-error: var(--error);
   --color-on-error: var(--on-error);
 
-  --font-display: var(--font-display);
-  --font-headline: var(--font-headline);
-  --font-body: var(--font-body);
-  --font-body-bold: var(--font-body-bold);
-  --font-label: var(--font-label);
-  --font-label-bold: var(--font-label-bold);
+  /* Fonts — now referencing prefixed :root vars, no self-reference */
+  --font-display: var(--font-family-display);
+  --font-headline: var(--font-family-headline);
+  --font-body: var(--font-family-body);
+  --font-body-bold: var(--font-family-body-bold);
+  --font-label: var(--font-family-label);
+  --font-label-bold: var(--font-family-label-bold);
 
-  --spacing-0.5: 2px;
-  --spacing-2.5: 10px;
-  --spacing-8.5: 34px;
+  /* Spacing */
+  --spacing-0_5: 2px;
+  --spacing-2_5: 10px;
+  --spacing-8_5: 34px;
 }
 
 @layer utilities {
   .bg-glass {
     background-color: rgba(38, 38, 38, 0.6);
   }
-  
-  .bg-neon-gradient {
-    background-image: linear-gradient(135deg, #8ff5ff 0%, #00eefc 100%);
-  }
-
-  .text-glow-primary {
-    text-shadow: 0px 0px 10px rgba(143, 245, 255, 0.8);
-  }
 }
-
-
