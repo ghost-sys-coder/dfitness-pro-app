@@ -7,20 +7,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
 
 const TAB_CONFIG: Record<string, { label: string; active: IoniconName; inactive: IoniconName }> = {
-  home:     { label: "Home",     active: "home",        inactive: "home-outline" },
-  workouts: { label: "Workouts", active: "barbell",     inactive: "barbell-outline" },
-  progress: { label: "Progress", active: "stats-chart", inactive: "stats-chart-outline" },
-  profile:  { label: "Profile",  active: "person",      inactive: "person-outline" },
+  index:            { label: "Dashboard", active: "grid",        inactive: "grid-outline" },
+  "clients/index":  { label: "Clients",   active: "people",      inactive: "people-outline" },
+  "workouts/index": { label: "Workouts",  active: "barbell",     inactive: "barbell-outline" },
+  "analytics/index":{ label: "Analytics", active: "stats-chart", inactive: "stats-chart-outline" },
+  "profile/index":  { label: "Profile",   active: "person",      inactive: "person-outline" },
 };
 
-const routeKey = (name: string) => name.replace("/index", "");
-
-// Still exported so screens can use it for bottom scroll padding if needed
-export const TAB_BAR_HEIGHT = 64;
-
-export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
+export default function TrainerTabBar({ state, navigation }: BottomTabBarProps) {
   const { colors } = useDSTheme();
-  // insets.bottom is 34px on Face ID iPhones, 0 on older models and Android
   const insets = useSafeAreaInsets();
 
   return (
@@ -30,14 +25,13 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
         {
           backgroundColor: colors.surfaceContainer,
           borderTopColor: colors.outlineVariant,
-          // push content above the iOS home indicator
           paddingBottom: insets.bottom,
         },
       ]}
     >
       {state.routes.map((route, index) => {
         const focused = state.index === index;
-        const config = TAB_CONFIG[routeKey(route.name)];
+        const config = TAB_CONFIG[route.name];
         if (!config) return null;
 
         return (
@@ -47,7 +41,7 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             android_ripple={{ borderless: true, radius: 40 }}
             style={styles.tab}
           >
-            {/* top accent line for active tab */}
+            {/* top active line */}
             <View
               style={[
                 styles.activeIndicator,
@@ -55,18 +49,11 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
               ]}
             />
 
-            <View
-              style={[
-                styles.iconWrap,
-                focused && { backgroundColor: withOpacity(colors.primary, 0.12) },
-              ]}
-            >
-              <Ionicons
-                name={focused ? config.active : config.inactive}
-                size={22}
-                color={focused ? colors.primary : colors.onSurfaceVariant}
-              />
-            </View>
+            <Ionicons
+              name={focused ? config.active : config.inactive}
+              size={22}
+              color={focused ? colors.primary : colors.onSurfaceVariant}
+            />
 
             <Text
               style={[
@@ -89,26 +76,20 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 const styles = StyleSheet.create({
   bar: {
     flexDirection: "row",
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: 1,
   },
   tab: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 0,
-    paddingBottom: 8,
-    gap: 3,
+    paddingTop: 4,
+    paddingBottom: 10,
+    gap: 4,
   },
   activeIndicator: {
-    width: "100%",
-    height: 2,
-    marginBottom: 8,
-  },
-  iconWrap: {
-    width: 44,
-    height: 36,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
+    width: 28,
+    height: 3,
+    borderRadius: 0,
+    marginBottom: 6,
   },
   label: {
     fontSize: 10,
