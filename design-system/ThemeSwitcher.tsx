@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { ThemeName, themeMetadata } from "./themes";
 import { useDSTheme } from "./ThemeContext";
+import { ThemeName, themeMetadata } from "./themes";
 
 const THEME_ORDER: ThemeName[] = ["solar", "neon", "ember"];
 
@@ -20,7 +20,9 @@ export default function DSThemeSwitcher() {
     >
       {THEME_ORDER.map((name) => {
         const active = themeName === name;
-        const { label, icon } = themeMetadata[name];
+        const {
+          // label, -- we can add this back if we want to show the theme name next to the icon
+          icon } = themeMetadata[name];
 
         return (
           <Pressable
@@ -40,14 +42,14 @@ export default function DSThemeSwitcher() {
             >
               {icon}
             </Text>
-            <Text
+            {/* <Text
               style={[
                 styles.label,
                 { color: active ? colors.onPrimary : colors.onSurfaceVariant },
               ]}
             >
               {label}
-            </Text>
+            </Text> */}
           </Pressable>
         );
       })}

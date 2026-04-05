@@ -1,8 +1,14 @@
 import { DSThemeSwitcher, useDSTheme, withOpacity } from "@/design-system";
 import { router } from "expo-router";
+import { styled } from "nativewind";
 import React, { useEffect, useRef } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { Easing } from "react-native-reanimated";
+
+import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
+
+const SafeAreaView = styled(RNSafeAreaView);
+
 
 export default function Index() {
   const { colors } = useDSTheme();
@@ -51,7 +57,7 @@ export default function Index() {
   }, [buttonFade, fadeIn, glowPulse, slideUp, taglineFade]);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
 
       {/* Background accent circles */}
       <View style={StyleSheet.absoluteFillObject}>
@@ -112,7 +118,7 @@ export default function Index() {
       {/* CTA buttons */}
       <Animated.View style={[styles.buttonSection, { opacity: buttonFade }]}>
         <Pressable
-          onPress={() => router.push("/(auth)/sign-up")}
+          onPress={() => router.push("/(tabs)/home")}
           style={({ pressed }) => [
             styles.primaryButton,
             { backgroundColor: colors.primary, opacity: pressed ? 0.8 : 1 },
@@ -140,7 +146,7 @@ export default function Index() {
         </Pressable>
       </Animated.View>
 
-    </View>
+    </SafeAreaView>
   );
 }
 
