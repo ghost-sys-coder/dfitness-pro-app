@@ -118,7 +118,7 @@ export default function Index() {
       {/* CTA buttons */}
       <Animated.View style={[styles.buttonSection, { opacity: buttonFade }]}>
         <Pressable
-          onPress={() => router.push("/(tabs)/home")}
+          onPress={() => router.push("/(onboarding)/welcome")}
           style={({ pressed }) => [
             styles.primaryButton,
             { backgroundColor: colors.primary, opacity: pressed ? 0.8 : 1 },
