@@ -1,18 +1,18 @@
-import { SplashScreen, Stack } from "expo-router";
-
+import { tokenCache } from "@clerk/clerk-expo/secure-store";
+import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import { DSThemeProvider } from "@/design-system";
 import { Lexend_400Regular, Lexend_700Bold } from "@expo-google-fonts/lexend";
 import { Manrope_400Regular, Manrope_700Bold } from "@expo-google-fonts/manrope";
 import { SpaceGrotesk_500Medium, SpaceGrotesk_700Bold } from "@expo-google-fonts/space-grotesk";
 import { WorkSans_400Regular, WorkSans_500Medium, WorkSans_700Bold } from "@expo-google-fonts/work-sans";
 import { useFonts } from "expo-font";
-
-import { DSThemeProvider } from "@/design-system";
+import { SplashScreen, Stack } from "expo-router";
 import { useCallback } from "react";
 import { View } from "react-native";
 
+const CLERK_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
-SplashScreen.preventAutoHideAsync(); // keep splash screen visible until fonts are loaded
-
+SplashScreen.preventAutoHideAsync();
 
 function RootLayoutInner() {
   const [fontsLoaded] = useFonts({
@@ -27,30 +27,27 @@ function RootLayoutInner() {
     WorkSans_500Medium,
   });
 
-  // hide splash screen once fonts are loaded
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
+  const onLayout = useCallback(async () => {
+    if (fontsLoaded) await SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
-  // ❗ DO NOT render anything until fonts are ready
-  if (!fontsLoaded) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Stack screenOptions={{ headerShown: false }} />
+    <View style={{ flex: 1 }} onLayout={onLayout}>
+      <ClerkLoaded>
+        <Stack screenOptions={{ headerShown: false }} />
+      </ClerkLoaded>
     </View>
   );
 }
 
-
 export default function RootLayout() {
   return (
-    <DSThemeProvider>
-      <RootLayoutInner />
-    </DSThemeProvider>
+    <ClerkProvider publishableKey={CLERK_KEY} tokenCache={tokenCache}>
+      <DSThemeProvider>
+        <RootLayoutInner />
+      </DSThemeProvider>
+    </ClerkProvider>
   );
 }

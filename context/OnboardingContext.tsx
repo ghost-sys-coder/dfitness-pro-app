@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 import React, { createContext, useContext, useState } from "react";
 
@@ -118,6 +119,7 @@ const OnboardingContext = createContext<OnboardingContextType>({
 });
 
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useUser();
   const [data, setData] = useState<OnboardingData>(initialData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -167,9 +169,16 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         },
       };
 
-      // TODO: replace with real API call once Node.js backend is ready
-      // await api.post('/onboarding/client', payload);
+      // TODO: replace with real API call once Node.js + NeonDB backend is ready.
+      // The backend should handle this via a Clerk webhook and set publicMetadata.
+      // await api.post('/api/onboarding/client', payload);
       console.log("Onboarding payload:", JSON.stringify(payload, null, 2));
+
+      // Temporarily store completion in unsafeMetadata (client-accessible).
+      // Once backend is live, this will be set server-side in publicMetadata.
+      await user?.update({
+        unsafeMetadata: { role: "client", onboardingComplete: true },
+      });
 
       router.replace("/(tabs)/home/index");
     } catch (err) {
