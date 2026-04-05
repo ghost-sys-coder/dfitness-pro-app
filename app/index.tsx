@@ -130,7 +130,7 @@ export default function Index() {
         </Pressable>
 
         <Pressable
-          onPress={() => router.push("/(auth)/sign-in")}
+          onPress={() => router.push("/(trainer)")}
           style={({ pressed }) => [
             styles.secondaryButton,
             {
