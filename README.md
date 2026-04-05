@@ -8,29 +8,29 @@ DFitness is a modern, cross-platform **fitness mobile application** built with *
 
 ### 👤 Client Features
 
-* 🎥 Video-based workouts
-* 🧠 Personalized workout recommendations
-* 📊 Progress tracking (weight, calories, activity)
-* ❤️ Favorites & recent workouts
-* 🔔 Notifications & reminders
-* 🏆 Achievements & streaks
+- 🎥 Video-based workouts
+- 🧠 Personalized workout recommendations
+- 📊 Progress tracking (weight, calories, activity)
+- ❤️ Favorites & recent workouts
+- 🔔 Notifications & reminders
+- 🏆 Achievements & streaks
 
 ### 🧑‍💼 Admin (Future Scope)
 
-* Upload/manage workout videos
-* Create structured programs
-* User analytics dashboard
+- Upload/manage workout videos
+- Create structured programs
+- User analytics dashboard
 
 ---
 
 ## 🧱 **Tech Stack**
 
-* ⚛️ React Native (Expo)
-* 🧭 Expo Router (file-based navigation)
-* 🎨 NativeWind (Tailwind CSS for RN)
-* 🎞️ React Native Video / Expo AV
-* 🗄️ Appwrite / Supabase (planned backend)
-* 🔐 Authentication (JWT / OAuth)
+- ⚛️ React Native (Expo)
+- 🧭 Expo Router (file-based navigation)
+- 🎨 NativeWind (Tailwind CSS for RN)
+- 🎞️ React Native Video / Expo AV
+- 🗄️ Appwrite / Supabase (planned backend)
+- 🔐 Authentication (JWT / OAuth)
 
 ---
 
@@ -112,13 +112,11 @@ DFitness uses **Expo Router (file-based routing)**.
 
 ### 🔑 Entry Point
 
-* `/` → `app/index.tsx`
-
-  * Handles:
-
-    * Authentication check
-    * Onboarding status
-    * Redirect logic
+- `/` → `app/index.tsx`
+  - Handles:
+    - Authentication check
+    - Onboarding status
+    - Redirect logic
 
 ---
 
@@ -228,8 +226,8 @@ npx expo start
 
 ### 3. Run on device
 
-* Scan QR with Expo Go
-* Or use emulator
+- Scan QR with Expo Go
+- Or use emulator
 
 ---
 
@@ -247,22 +245,22 @@ EXPO_PUBLIC_APPWRITE_PROJECT_ID=
 
 ## 🧠 **Best Practices**
 
-* Use reusable components
-* Keep screens lightweight
-* Lazy load heavy screens (video player)
-* Optimize video streaming
-* Use global state (Zustand/Redux) for user + workouts
+- Use reusable components
+- Keep screens lightweight
+- Lazy load heavy screens (video player)
+- Optimize video streaming
+- Use global state (Zustand/Redux) for user + workouts
 
 ---
 
 ## 🚀 **Future Roadmap**
 
-* 🤖 AI workout recommendations
-* 🥗 Nutrition tracking
-* ⌚ Wearables integration (Fitbit, Apple Watch)
-* 💬 Coach chat system
-* 💳 Subscription & payments
-* 🌐 Social/community features
+- 🤖 AI workout recommendations
+- 🥗 Nutrition tracking
+- ⌚ Wearables integration (Fitbit, Apple Watch)
+- 💬 Coach chat system
+- 💳 Subscription & payments
+- 🌐 Social/community features
 
 ---
 

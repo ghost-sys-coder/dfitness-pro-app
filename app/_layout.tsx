@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 
 import { Lexend_400Regular, Lexend_700Bold } from "@expo-google-fonts/lexend";
 import { Manrope_400Regular, Manrope_700Bold } from "@expo-google-fonts/manrope";
@@ -7,7 +7,11 @@ import { WorkSans_400Regular, WorkSans_500Medium, WorkSans_700Bold } from "@expo
 import { useFonts } from "expo-font";
 
 import { DSThemeProvider } from "@/design-system";
+import { useCallback } from "react";
 import { View } from "react-native";
+
+
+SplashScreen.preventAutoHideAsync(); // keep splash screen visible until fonts are loaded
 
 
 function RootLayoutInner() {
@@ -23,12 +27,20 @@ function RootLayoutInner() {
     WorkSans_500Medium,
   });
 
+  // hide splash screen once fonts are loaded
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  // ❗ DO NOT render anything until fonts are ready
   if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <Stack screenOptions={{ headerShown: false }} />
     </View>
   );
